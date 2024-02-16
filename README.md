@@ -11,3 +11,6 @@ Weekly Blog: https://x.com/m6dproducer/status/1758549549533077668?s=20
 - Implementing Open Graph Protocol
   - official docs: https://ogp.me/
   - vercel og check: https://vercel.com/m6code/chat-gpt-clone-web2acx/BqpzTYopgqreBMKj14byBHMKQS9X/og
+- Woking with OpenAI Chat Completion Api
+  - Installation: [https://platform.openai.com/docs/libraries/python-library](https://platform.openai.com/docs/libraries/node-js-library)
+  - Usage: https://platform.openai.com/docs/guides/text-generation/chat-completions-api
