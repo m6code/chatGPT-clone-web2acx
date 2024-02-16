@@ -5,7 +5,7 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY = "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"; // Paste your API key here
+const API_KEY ="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"; // Paste your API key here
 
 const loadDataFromLocalstorage = () => {
     // Load saved chats and theme from local storage and apply/add on the page
@@ -32,7 +32,7 @@ const createChatElement = (content, className) => {
 }
 
 const getChatResponse = async (incomingChatDiv) => {
-    const API_URL = "https://api.openai.com/v1/completions";
+    const API_URL = "https://api.openai.com/v1/chat/completions";
     const pElement = document.createElement("p");
 
     // Define the properties and data for the API request
@@ -43,7 +43,7 @@ const getChatResponse = async (incomingChatDiv) => {
             "Authorization": `Bearer ${API_KEY}`
         },
         body: JSON.stringify({
-            model: "text-davinci-003",
+            model: "gpt-3.5-turbo",
             prompt: userText,
             max_tokens: 2048,
             temperature: 0.2,
