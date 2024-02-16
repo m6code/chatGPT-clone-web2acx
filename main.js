@@ -1,5 +1,13 @@
+import OpenAI from "openai";
 import "./style.css";
 const { VITE_OPENAI_API_KEY } = import.meta.env;
+
+const openai = new OpenAI({
+    apiKey: VITE_OPENAI_API_KEY,
+    dangerouslyAllowBrowser: true,
+});
+
+
 
 const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
@@ -8,7 +16,6 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY = VITE_OPENAI_API_KEY; // Paste your API key here
 
 const loadDataFromLocalstorage = () => {
     // Load saved chats and theme from local storage and apply/add on the page
@@ -35,40 +42,16 @@ const createChatElement = (content, className) => {
 }
 
 const getChatResponse = async (incomingChatDiv) => {
-    const API_URL = "https://api.openai.com/v1/chat/completions";
+    // const API_URL = "https://api.openai.com/v1/chat/completions";
     const pElement = document.createElement("p");
 
-    // Define the properties and data for the API request
-    const requestOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
-        },
-        body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [
-                {
-                    role: "system",
-                    content: "You are a helpful assistant."
-                },
-                {
-                    role: "user",
-                    content: userText
-                }
-            ],
-            max_tokens: 2048,
-            temperature: 0.2,
-            n: 1,
-            stop: null
-        })
-    }
-
-    // Send POST request to API, get response and set the reponse as paragraph element text
+    // Send POST request to API, get response and set the response as paragraph element text
     try {
-        const response = await (await fetch(API_URL, requestOptions)).json();
-        console.log(response);
-        pElement.textContent = response.choices[0].message.content;
+        const chatCompletion = await openai.chat.completions.create({
+            messages: [{ role: "user", content: userText }],
+            model: "gpt-3.5-turbo",
+        });
+        pElement.textContent = chatCompletion.choices[0].message.content;
 
     } catch (error) { // Add error class to the paragraph element and set error text
         pElement.classList.add("error");
@@ -85,8 +68,8 @@ const getChatResponse = async (incomingChatDiv) => {
 
 const copyResponse = (copyBtn) => {
     // Copy the text content of the response to the clipboard
-    const reponseTextElement = copyBtn.parentElement.querySelector("p");
-    navigator.clipboard.writeText(reponseTextElement.textContent);
+    const responseTextElement = copyBtn.parentElement.querySelector("p");
+    navigator.clipboard.writeText(responseTextElement.textContent);
     copyBtn.textContent = "done";
     setTimeout(() => copyBtn.textContent = "content_copy", 1000);
 }
