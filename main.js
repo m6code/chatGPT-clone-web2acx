@@ -1,3 +1,6 @@
+import "./style.css";
+const { VITE_OPENAI_API_KEY } = import.meta.env;
+
 const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
@@ -5,7 +8,11 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY ="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"; // Paste your API key here
+const API_KEY = VITE_OPENAI_API_KEY; // Paste your API key here
+console.log(import.meta.env.VITE_OPENAI_API_KEY);
+console.log(import.meta.env.DEV);
+console.log(API_KEY);
+
 
 const loadDataFromLocalstorage = () => {
     // Load saved chats and theme from local storage and apply/add on the page
@@ -44,7 +51,16 @@ const getChatResponse = async (incomingChatDiv) => {
         },
         body: JSON.stringify({
             model: "gpt-3.5-turbo",
-            prompt: userText,
+            messages: [
+                {
+                    role: "system",
+                    content: "You are a helpful assistant."
+                },
+                {
+                    role: "user",
+                    content: userText
+                }
+            ],
             max_tokens: 2048,
             temperature: 0.2,
             n: 1,
@@ -55,9 +71,12 @@ const getChatResponse = async (incomingChatDiv) => {
     // Send POST request to API, get response and set the reponse as paragraph element text
     try {
         const response = await (await fetch(API_URL, requestOptions)).json();
-        pElement.textContent = response.choices[0].text.trim();
+        console.log(response);
+        pElement.textContent = response.choices[0].message.content;
+
     } catch (error) { // Add error class to the paragraph element and set error text
         pElement.classList.add("error");
+        console.log(error);
         pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
     }
 
