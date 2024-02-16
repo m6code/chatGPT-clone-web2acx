@@ -1,8 +1,8 @@
 # [Chat GPT Clone with HTML, CSS and JavaScript](https://www.youtube.com/watch?v=atKtG29iroY)
 ## Links
-Demo: https://chat-gpt-clone-web2acx.vercel.app/
-Repo: https://github.com/m6code/chatGPT-clone-web2acx
-Weekly Blog: https://x.com/m6dproducer/status/1758549549533077668?s=20
+- Demo: https://chat-gpt-clone-web2acx.vercel.app/
+- Repo: https://github.com/m6code/chatGPT-clone-web2acx
+- Weekly Blog: https://x.com/m6dproducer/status/1758549549533077668?s=20
 
 ### Helpful Resource Links
 - Woking with environmental variables 
