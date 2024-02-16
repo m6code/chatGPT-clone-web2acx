@@ -9,10 +9,6 @@ const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
 const API_KEY = VITE_OPENAI_API_KEY; // Paste your API key here
-console.log(import.meta.env.VITE_OPENAI_API_KEY);
-console.log(import.meta.env.DEV);
-console.log(API_KEY);
-
 
 const loadDataFromLocalstorage = () => {
     // Load saved chats and theme from local storage and apply/add on the page
